@@ -12,16 +12,16 @@
     "url": "github.com/claytongentry/Aggregator"
   },
   "keywords": [
-    "news"
+    "news",
+    "tech"
   ],
   "author": "Clayton Gentry",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/claytongentry/Aggregator/issues"
   },
-  "homepage": "https://github.com/claytongentry/Aggregator",
   "dependencies": {
     "express": "^4.13.3",
-    "mongojs": "^1.2.1",
+    "mongojs": "^1.2.1"
   }
 }
