@@ -16,5 +16,7 @@ app.get('/articlelist', function(req, res) {
   });
 });
 
-app.listen(3000);
-console.log("Cooking on 3000...");
+var port = Number(process.env.PORT || 3000)
+
+app.listen(port);
+console.log("Cooking on " + port + "...");
