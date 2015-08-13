@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app='Aggregator'>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <title>Aggregator</title>
+</head>
+<body>
+  <div class="container" ng-controller="AppCtrl">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Source</th>
+          <th>Section</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat='article in articlelist'>
+          <td><a target="_blank" ng-href="{{article.link}}">{{article.title}}</a></td>
+          <td>{{article.source}}</td>
+          <td>{{article.section}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
+  <script src="controllers/controller.js"></script>
+</body>
+</html>
