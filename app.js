@@ -11,12 +11,13 @@ app.use(express.static(__dirname + "/public"));
 
 app.get('/articlelist', function(req, res) {
   db.pieces.find(function(err, docs) {
-    console.log(docs);
     res.json(docs);
   });
 });
 
-var port = Number(process.env.PORT || 3000)
+var port = Number(process.env.PORT || 3000);
 
 app.listen(port);
 console.log("Cooking on " + port + "...");
+
+module.exports.db = db;
