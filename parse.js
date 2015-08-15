@@ -1,6 +1,15 @@
 var Feedparser = require('feedparser');
 var request = require('request');
-var app = require('./app.js');
+var mongojs = require('mongojs');
+var moment = require('moment');
+
+var mongo_URI = process.env.MONGOLAB_URI;
+var db = mongojs(mongo_URI, ['pieces']);
+
+module.exports.db = db; // App.js will want this^
+
+// Remove articles more than 3 days old
+db.pieces.createIndex({"pubDate": 1}, {expireAfterSeconds:259200});
 
 var requests = [
   'http://rss.nytimes.com/services/xml/rss/nyt/Science.xml',
@@ -37,15 +46,21 @@ function read_rss(source) {
         entry = {},
         item;
     while (item = stream.read()) {
-      entry.title = item.title;
-      entry.author = item.author;
-      entry.description = item.description.replace(/<(?:.|\n)*?>/gm, '');
-      entry.summary = item.summary.replace(/<(?:.|\n)*?>/gm, '');
-      entry.image = item.image.url;
-      entry.date = item.date;
-      entry.link = item.link;
-      console.log(item);
-      app.db.pieces.insert(entry);
+        // Only add to db if it's not already there
+        db.pieces.update(
+        {title:item.title},
+        {$set:{
+          "title":item.title,
+          "author":item.author,
+          "description":item.description.replace(/<(?:.|\n)*?>/gm, ''),
+          "summary":item.summary.replace(/<(?:.|\n)*?>/gm, ''),
+          "image":item.image.url,
+          "pubDate":new Date(item.date),
+          "link":item.link
+        }},
+        {upsert:true}
+      );
+
     }
 
   });

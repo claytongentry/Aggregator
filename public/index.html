@@ -11,15 +11,11 @@
       <thead>
         <tr>
           <th>Title</th>
-          <th>Source</th>
-          <th>Section</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat='article in articlelist'>
           <td><a target="_blank" ng-href="{{article.link}}">{{article.title}}</a></td>
-          <td>{{article.source}}</td>
-          <td>{{article.section}}</td>
         </tr>
       </tbody>
     </table>
