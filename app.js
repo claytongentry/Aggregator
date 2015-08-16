@@ -1,14 +1,22 @@
 var express = require('express');
-var parse = require('./parse.js');
-var app = express();
+var db = require('./db.js').db;
 
-console.log("Connected");
+var app = express();
 
 app.use(express.static(__dirname + "/public"));
 
 app.get('/articlelist', function(req, res) {
-  parse.db.pieces.find(function(err, docs) {
-    res.json(docs);
+  db.pieces.find().sort({pubDate:-1}, function(err, docs) {
+
+    if (err) console.error(err);
+
+    if (docs) {
+      res.json(docs);
+    }
+    else {
+      console.log("Nothing matches your search.");
+    }
+
   });
 });
 

@@ -2,20 +2,40 @@
 <html ng-app='Aggregator'>
 <head>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
   <title>Aggregator</title>
 </head>
 <body>
   <div class="container ng-cloak" ng-controller="AppCtrl">
+
+    <div class="row">
+
+      <h1 class='col-md-6'>News Aggregator</h1>
+
+      <div class="col-md-6 pull-right" style="margin-top: 27px;">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Literate cats...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Go!</button>
+          </span>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+
+
+    </div>
+
     <table class="table">
       <thead>
         <tr>
           <th>Title</th>
+          <th>Source</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat='article in articlelist'>
-          <td><a target="_blank" ng-href="{{article.link}}">{{article.title}}</a></td>
+          <td class='col-md-9'><a target="_blank" ng-href="{{article.link}}">{{article.title}}</a></td>
+          <td class='col-md-3'>{{article.source}}</td>
         </tr>
       </tbody>
     </table>
@@ -24,27 +44,3 @@
   <script src="controllers/controller.js"></script>
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html ng-app='Aggregator'>
-<head>
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
-  <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
-  <title>Aggregator</title>
-</head>
-<body>
-  <div class="container ng-cloak" ng-controller="AppCtrl">
-    <table class="table">
-      <tr class='col-md-12'>
-        <td ng-repeat='article in articlelist' style="text-align: center;">
-          <h1><a target="_blank" ng-href="{{article.link}}">{{article.title}}</a></h1>
-          <h4>{{article.source}}</h4>
-          <h6>{{article.section}}</h6>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
-  <script src="controllers/controller.js"></script>
-</body>
-</html> -->

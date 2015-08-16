@@ -1,12 +1,7 @@
 var Feedparser = require('feedparser');
 var request = require('request');
-var mongojs = require('mongojs');
 var moment = require('moment');
-
-var mongo_URI = process.env.MONGOLAB_URI;
-var db = mongojs(mongo_URI, ['pieces']);
-
-module.exports.db = db; // App.js will want this^
+var db = require('./db.js').db;
 
 // Remove articles more than 3 days old
 db.pieces.createIndex({"pubDate": 1}, {expireAfterSeconds:259200});
@@ -14,7 +9,9 @@ db.pieces.createIndex({"pubDate": 1}, {expireAfterSeconds:259200});
 var requests = [
   'http://rss.nytimes.com/services/xml/rss/nyt/Science.xml',
   'https://www.reddit.com/r/internetisbeautiful/.rss',
-  'http://feeds.washingtonpost.com/rss/rss_comic-riffs'
+  'http://feeds.washingtonpost.com/rss/rss_comic-riffs',
+  'http://hnrss.org/newest',
+  'http://news.google.com/?output=rss'
 ];
 
 requests.forEach(function(current) {
@@ -52,6 +49,7 @@ function read_rss(source) {
         {$set:{
           "title":item.title,
           "author":item.author,
+          "source":item.meta.title,
           "description":item.description.replace(/<(?:.|\n)*?>/gm, ''),
           "summary":item.summary.replace(/<(?:.|\n)*?>/gm, ''),
           "image":item.image.url,
